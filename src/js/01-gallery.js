@@ -21,7 +21,6 @@ function createGalleryItemMarkup(galleryItems) {
             <img
               class="gallery__image"
               src="${preview}"
-              data-source="${original}"
               alt="${description}"
             />
           </a>
@@ -31,17 +30,12 @@ function createGalleryItemMarkup(galleryItems) {
         .join('');
 };
 
+const lightbox = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250 })
+
 function onGalleryPictureClick(event) {
     event.preventDefault();
-    if (!event.target.classList.contains('gallery__image')) {
-        return;
+    if (event.key === "Escape") {
+        modalWindow.close();
     };
-    const galleryElement = event.target.dataset.source;
-    const instance = basicLightbox.create(`
-	        <img
-              src="${galleryElement}"
-              width = "800"
-              height = "600"/>
-    `);
-    instance.show();
 };
+
