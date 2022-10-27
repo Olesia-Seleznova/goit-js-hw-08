@@ -15,7 +15,7 @@ const player = new Player(iframe);
     });
 
 const onPlay = throttle((data) => {
-        localStorage.setItem("videoplayer-current-time", data.seconds);
+    localStorage.setItem("videoplayer-current-time", data.seconds);
 }, 1000)
     player.on('play', onPlay);
 
