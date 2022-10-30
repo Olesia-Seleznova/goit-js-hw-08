@@ -10,7 +10,7 @@ const refs = {
   textarea: document.querySelector('textarea'),
 }
 
-savedFormData();
+populateFormData();
 
 refs.form.addEventListener("submit", throttle(onInputSubmit, 500));
 
@@ -26,13 +26,12 @@ function onInputSubmit(event) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-function savedFormData() {
+function populateFormData() {
   const savedFormData = localStorage.getItem(STORAGE_KEY);
   const parsedFormData = JSON.parse(savedFormData);
   if (parsedFormData) {
-    formData = parsedFormData;
-    refs.input.value = formData.email || '';
-    refs.textarea.value = formData.textarea || '';
-    console.log(formData);
+    refs.input.value = parsedFormData.email || '';
+    refs.textarea.value = parsedFormData.message || '';
+    console.log(parsedFormData);
   }
 }
