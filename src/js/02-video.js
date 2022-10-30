@@ -2,9 +2,9 @@ import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('iframe');
-    console.log(iframe);
+    // console.log(iframe);
 
-const player = new Player(iframe);
+const player = new Vimeo.Player(iframe);
 
     player.on('play', function() {
         console.log('played the video!');
@@ -17,7 +17,14 @@ const player = new Player(iframe);
 const onPlay = throttle((data) => {
     localStorage.setItem("videoplayer-current-time", data.seconds);
 }, 1000)
-    player.on('play', onPlay);
+player.on('timeupdate', onPlay);
+    
+player.setCurrentTime("videoplayer-current-time").then(function(seconds) {
+    // seconds = the actual time that the player seeked to
+}).catch(function(error) {
+    switch (error.name) {
+    }
+});
 
 player.on("loaded", function () {
         if (localStorage.getItem("videoplayer-current-time")) {
